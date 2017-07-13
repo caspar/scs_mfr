@@ -5,12 +5,12 @@ Created on 27 Feb 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-calibration workflow:
+Act II of III: Calibration workflow:
+
     1: ./rtc.py -i -s -v
     2: ./pt1000_calib.py -s -v
   > 3: ./afe_calib -s AFE_SERIAL_NUMBER
     4: ./afe_baseline.py -v -1 SN1_OFFSET -2 SN2_OFFSET -3 SN3_OFFSET -4 SN3_OFFSET
-    5: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
 Creates AFECalib document.
 
@@ -20,15 +20,12 @@ command line example:
 
 import json
 import sys
-
 from collections import OrderedDict
 
 from scs_core.data.json import JSONify
 from scs_core.gas.afe_calib import AFECalib
-
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
-
 from scs_mfr.cmd.cmd_afe_calib import CmdAFECalib
 
 

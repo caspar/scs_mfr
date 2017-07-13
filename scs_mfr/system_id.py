@@ -7,7 +7,8 @@ Created on 17 Feb 2017
 
 Warning: changing system ID components can cause host client access to fail.
 
-OpenSensors workflow:
+Act III of III: OpenSensors.io workflow:
+
     1: ./host_id.py
   > 2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY
@@ -16,6 +17,9 @@ OpenSensors workflow:
     6: ./host_project.py -s GROUP LOCATION_ID -p
 
 Creates SystemID document.
+
+document example:
+{"vendor-id": "scs", "model-id": "ap1", "model": "Alpha Pi Eng", "config": "V1", "system-sn": 6}
 
 command line example:
 ./system_id.py -v -d SCS -m BGX -n Praxis -c BGX -s 111

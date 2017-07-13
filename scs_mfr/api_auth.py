@@ -5,7 +5,8 @@ Created on 18 Feb 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-OpenSensors workflow:
+Act III of III: OpenSensors.io workflow:
+
     1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
   > 3: ./api_auth.py -s ORG_ID API_KEY
@@ -15,6 +16,9 @@ OpenSensors workflow:
 
 Creates APIAuth document.
 
+document example:
+{"org-id": "south-coast-science-test-user", "api-key": "9fdfb841-3433-45b8-b223-3f5a283ceb8e"}
+
 command line example:
 ./api_auth.py -v -s south-coast-science-test 9fdfb841-3433-45b8-b223-3f5a283ceb8e
 """
@@ -23,9 +27,7 @@ import sys
 
 from scs_core.data.json import JSONify
 from scs_core.osio.client.api_auth import APIAuth
-
 from scs_host.sys.host import Host
-
 from scs_mfr.cmd.cmd_api_auth import CmdAPIAuth
 
 

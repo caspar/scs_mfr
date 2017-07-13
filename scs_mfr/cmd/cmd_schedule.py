@@ -13,12 +13,12 @@ class CmdSchedule(object):
     """unix command line handler"""
 
     def __init__(self):
-        self.__parser = optparse.OptionParser(usage="%prog [{-s NAME INTERVAL COUNT | -c NAME }] [-v]",
+        self.__parser = optparse.OptionParser(usage="%prog [{-s NAME INTERVAL TALLY | -c NAME }] [-v]",
                                               version="%prog 1.0")
 
         # optional...
         self.__parser.add_option("--set", "-s", type="string", nargs=3, action="store", dest="set",
-                                 help="set schedule NAME, INTERVAL (float) and COUNT (int)")
+                                 help="set schedule NAME, INTERVAL (float) and TALLY (int)")
 
         self.__parser.add_option("--clear", "-c", type="string", nargs=1, action="store", dest="clear",
                                  help="remove named schedule")

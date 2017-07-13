@@ -5,7 +5,8 @@ Created on 16 Apr 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-OpenSensors workflow:
+Act III of III: OpenSensors.io workflow:
+
   > 1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY

@@ -45,13 +45,6 @@ class CmdHostClient(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def is_valid(self, device):
-        if device is None:
-            return self.is_complete()
-
-        return True
-
-
     def is_complete(self):
         if self.user_id is None or self.__opts.lat_lng_postcode is None:
             return False

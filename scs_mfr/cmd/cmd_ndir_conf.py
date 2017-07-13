@@ -40,14 +40,14 @@ class CmdNDIRConf(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def set(self):
-        return self.__opts.present is not None
+        return self.present is not None
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
     def present(self):
-        return bool(self.__opts.present)
+        return bool(self.__opts.present) if self.__opts.present is not None else None
 
 
     @property

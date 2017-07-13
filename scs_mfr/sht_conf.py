@@ -5,14 +5,16 @@ Created on 13 Dec 2016
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-configuration workflow:
+Act I of III: Configuration workflow:
+
     1: ./pt1000_conf.py -a ADDR -v
   > 2: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
     3: ./ndir_conf.py -p { 1 | 0 } -v
+    4: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
 Creates SHTConf document.
 
-example:
+document example:
 {"int": "0x44", "ext": "0x45"}
 
 command line example:
@@ -35,6 +37,16 @@ from scs_mfr.cmd.cmd_sht_conf import CmdSHTConf
 if __name__ == '__main__':
 
     # ----------------------------------------------------------------------------------------------------------------
+    # cmd...
+
+    cmd = CmdSHTConf()
+
+    if cmd.verbose:
+        print(cmd, file=sys.stderr)
+        sys.stderr.flush()
+
+
+    # ----------------------------------------------------------------------------------------------------------------
     # resources...
 
     # SHTConf...
@@ -42,17 +54,12 @@ if __name__ == '__main__':
 
 
     # ----------------------------------------------------------------------------------------------------------------
-    # cmd...
+    # validate...
 
-    cmd = CmdSHTConf()
-
-    if not cmd.is_valid(conf):
+    if conf is None and cmd.set() and not cmd.is_complete():
+        print("No configuration is stored. sht_conf should therefore set both addresses:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
-
-    if cmd.verbose:
-        print(cmd, file=sys.stderr)
-        sys.stderr.flush()
 
 
     # ----------------------------------------------------------------------------------------------------------------

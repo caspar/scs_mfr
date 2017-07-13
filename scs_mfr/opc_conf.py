@@ -1,32 +1,36 @@
 #!/usr/bin/env python3
 
 """
-Created on 18 May 2017
+Created on 13 Jul 2016
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
 Act I of III: Configuration workflow:
 
-  > 1: ./pt1000_conf.py -a ADDR -v
-    2: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
-    3: ./ndir_conf.py -p { 1 | 0 } -v
-    4: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
+    1: ./pt1000_conf.py -a ADDR -v
+  > 2: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
+    3: ./opc_conf.py -m MODEL -s SAMPLE_PERIOD -p { 0 | 1 } -v
+    4: ./ndir_conf.py -p { 1 | 0 } -v
+    5: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
-Creates Pt1000Conf document.
+Creates OPCConf document.
 
 document example:
-{"addr": "0x69"}
+{"model": "N2", "sample-period": 10, "power-saving": false}
 
 command line example:
-./pt1000_conf.py -a 0x69 -v
+./opc_conf.py -m N2 -s 10 -p 0 -v
 """
 
 import sys
 
 from scs_core.data.json import JSONify
-from scs_dfe.gas.pt1000_conf import Pt1000Conf
+
+from scs_dfe.particulate.opc_conf import OPCConf
+
 from scs_host.sys.host import Host
-from scs_mfr.cmd.cmd_pt1000_conf import CmdPt1000Conf
+
+from scs_mfr.cmd.cmd_opc_conf import CmdOPCConf
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -36,7 +40,11 @@ if __name__ == '__main__':
     # ----------------------------------------------------------------------------------------------------------------
     # cmd...
 
-    cmd = CmdPt1000Conf()
+    cmd = CmdOPCConf()
+
+    if not cmd.is_valid():
+        cmd.print_help(sys.stderr)
+        exit()
 
     if cmd.verbose:
         print(cmd, file=sys.stderr)
@@ -46,15 +54,15 @@ if __name__ == '__main__':
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
 
-    # Pt1000Conf...
-    conf = Pt1000Conf.load_from_host(Host)
+    # SHTConf...
+    conf = OPCConf.load_from_host(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------
     # validate...
 
     if conf is None and cmd.set() and not cmd.is_complete():
-        print("No configuration is stored. pt1000_conf should therefore set an address:", file=sys.stderr)
+        print("No configuration is stored. opc_conf should therefore set all fields:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
 
@@ -67,7 +75,12 @@ if __name__ == '__main__':
             cmd.print_help(sys.stderr)
             exit()
 
-        conf = Pt1000Conf(cmd.addr)
+        model = cmd.model if cmd.model else conf.model
+        sample_period = cmd.sample_period if cmd.sample_period else conf.sample_period
+        power_saving = cmd.power_saving if cmd.power_saving is not None else conf.power_saving
+
+        conf = OPCConf(model, sample_period, power_saving)
+
         conf.save(Host)
 
     if conf:

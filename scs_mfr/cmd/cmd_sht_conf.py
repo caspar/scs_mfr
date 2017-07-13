@@ -44,13 +44,6 @@ class CmdSHTConf(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def is_valid(self, conf):
-        if conf is None and self.set():
-            return self.is_complete()
-
-        return True
-
-
     def is_complete(self):
         if self.int_addr is None or self.ext_addr is None:
             return False

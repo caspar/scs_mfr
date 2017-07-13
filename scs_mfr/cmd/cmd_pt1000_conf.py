@@ -41,13 +41,6 @@ class CmdPt1000Conf(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def is_valid(self, conf):
-        if conf is None and self.set():
-            return self.is_complete()
-
-        return True
-
-
     def is_complete(self):
         if self.addr is None:
             return False

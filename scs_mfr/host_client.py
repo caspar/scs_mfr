@@ -5,7 +5,8 @@ Created on 18 Feb 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-OpenSensors workflow:
+Act III of III: OpenSensors.io workflow:
+
     1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY
@@ -17,6 +18,9 @@ Requires APIAuth and SystemID documents.
 
 Creates ClientAuth document.
 
+document example:
+{"user_id": "southcoastscience-dev", "client-id": "5403", "client-password": "rtxSrK2f"}
+
 command line example:
 ./host_client.py -s -u south-coast-science-test-user -l 50.823130 -0.122922 "BN2 0DF" -p -v
 """
@@ -24,26 +28,30 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
-
 from scs_core.gas.afe_calib import AFECalib
-
 from scs_core.osio.client.api_auth import APIAuth
 from scs_core.osio.client.client_auth import ClientAuth
 from scs_core.osio.config.project_source import ProjectSource
 from scs_core.osio.manager.device_manager import DeviceManager
 from scs_core.osio.manager.user_manager import UserManager
-
 from scs_core.sys.system_id import SystemID
-
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
-
 from scs_mfr.cmd.cmd_host_client import CmdHostClient
 
 
 # --------------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
+
+    # ----------------------------------------------------------------------------------------------------------------
+    # cmd...
+
+    cmd = CmdHostClient()
+
+    if cmd.verbose:
+        print(cmd, file=sys.stderr)
+
 
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
@@ -55,6 +63,9 @@ if __name__ == '__main__':
         print("APIAuth not available.", file=sys.stderr)
         exit()
 
+    if cmd.verbose:
+        print(api_auth, file=sys.stderr)
+
     # SystemID...
     system_id = SystemID.load_from_host(Host)
 
@@ -62,12 +73,19 @@ if __name__ == '__main__':
         print("SystemID not available.", file=sys.stderr)
         exit()
 
+    if cmd.verbose:
+        print(system_id, file=sys.stderr)
+
     # AFECalib...
     afe_calib = AFECalib.load_from_host(Host)
 
     if afe_calib is None:
         print("AFECalib not available.", file=sys.stderr)
         exit()
+
+    if cmd.verbose:
+        print(afe_calib, file=sys.stderr)
+        sys.stderr.flush()
 
     # User manager...
     user_manager = UserManager(HTTPClient(), api_auth.api_key)
@@ -80,18 +98,10 @@ if __name__ == '__main__':
 
 
     # ----------------------------------------------------------------------------------------------------------------
-    # cmd...
+    # validate...
 
-    cmd = CmdHostClient()
-
-    if cmd.verbose:
-        print(cmd, file=sys.stderr)
-        print(api_auth, file=sys.stderr)
-        print(system_id, file=sys.stderr)
-        print(afe_calib, file=sys.stderr)
-        sys.stderr.flush()
-
-    if not cmd.is_valid(device):
+    if device is None and not cmd.is_complete():
+        print("No device is registered. host_client should therefore set user and location:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
 

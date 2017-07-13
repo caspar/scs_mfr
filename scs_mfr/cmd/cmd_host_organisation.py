@@ -46,19 +46,10 @@ class CmdHostOrganisation(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def is_valid(self, org):
-        if org is None:
-            return self.is_complete()
-
-        return True
-
-
     def is_complete(self):
         return self.org_id is not None and self.name is not None and self.website is not None and \
                self.description is not None and self.email is not None
 
-
-    # ----------------------------------------------------------------------------------------------------------------
 
     def set(self):
         return self.name is not None or self.website is not None or \

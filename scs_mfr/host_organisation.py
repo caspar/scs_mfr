@@ -5,7 +5,8 @@ Created on 8 Mar 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-OpenSensors workflow:
+Act III of III: OpenSensors.io workflow:
+
     1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY
@@ -32,10 +33,8 @@ from scs_core.data.json import JSONify
 from scs_core.osio.client.api_auth import APIAuth
 from scs_core.osio.data.organisation import Organisation
 from scs_core.osio.manager.organisation_manager import OrganisationManager
-
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
-
 from scs_mfr.cmd.cmd_host_organisation import CmdHostOrganisation
 
 
@@ -44,6 +43,15 @@ from scs_mfr.cmd.cmd_host_organisation import CmdHostOrganisation
 # --------------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
+
+    # ----------------------------------------------------------------------------------------------------------------
+    # cmd...
+
+    cmd = CmdHostOrganisation()
+
+    if cmd.verbose:
+        print(cmd, file=sys.stderr)
+
 
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
@@ -55,6 +63,10 @@ if __name__ == '__main__':
         print("APIAuth not available.", file=sys.stderr)
         exit()
 
+    if cmd.verbose:
+        print(api_auth, file=sys.stderr)
+        sys.stderr.flush()
+
     # manager...
     manager = OrganisationManager(HTTPClient(), api_auth.api_key)
 
@@ -63,18 +75,12 @@ if __name__ == '__main__':
 
 
     # ----------------------------------------------------------------------------------------------------------------
-    # cmd...
+    # validate...
 
-    cmd = CmdHostOrganisation()
-
-    if not cmd.is_valid(org):
+    if org is None and not cmd.is_complete():
+        print("No organisation is registered. host_organisation should therefore set all fields:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
-
-    if cmd.verbose:
-        print(api_auth, file=sys.stderr)
-        print(cmd, file=sys.stderr)
-        sys.stderr.flush()
 
 
     # ----------------------------------------------------------------------------------------------------------------

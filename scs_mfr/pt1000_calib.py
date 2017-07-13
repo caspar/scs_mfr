@@ -5,12 +5,12 @@ Created on 1 Oct 2016
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-calibration workflow:
+Act II of III: Calibration workflow:
+
     1: ./rtc.py -i -s -v
   > 2: ./pt1000_calib.py -s -v
     3: ./afe_calib -s AFE_SERIAL_NUMBER
     4: ./afe_baseline.py -v -1 SN1_OFFSET -2 SN2_OFFSET -3 SN3_OFFSET -4 SN3_OFFSET
-    5: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
 Creates Pt1000Calib document.
 
@@ -26,20 +26,14 @@ import sys
 from scs_core.data.json import JSONify
 from scs_core.gas.pt1000_calib import Pt1000Calib
 from scs_core.sys.exception_report import ExceptionReport
-
 from scs_dfe.climate.sht_conf import SHTConf
-
 from scs_dfe.gas.afe import AFE
 from scs_dfe.gas.pt1000 import Pt1000
 from scs_dfe.gas.pt1000_conf import Pt1000Conf
-
 from scs_host.bus.i2c import I2C
 from scs_host.sys.host import Host
-
 from scs_mfr.cmd.cmd_pt1000_calib import CmdPt1000Calib
 
-
-# TODO change to use LocalisedDatetime, like afe_baseline
 
 # --------------------------------------------------------------------------------------------------------------------
 

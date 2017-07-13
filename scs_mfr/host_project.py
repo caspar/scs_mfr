@@ -5,7 +5,8 @@ Created on 18 Feb 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-OpenSensors workflow:
+Act III of III: OpenSensors.io workflow:
+
     1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY
@@ -17,6 +18,9 @@ Requires APIAuth, SystemID and AFECalib documents.
 
 Creates Project document.
 
+document example:
+{"location-path": "/orgs/southcoastscience-dev/test/loc/1", "device-path": "/orgs/southcoastscience-dev/test/device"}
+
 command line example:
 ./host_project.py -v -s field-trial 2 -p
 """
@@ -24,21 +28,16 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
-
 from scs_core.gas.afe_calib import AFECalib
-
 from scs_core.osio.client.api_auth import APIAuth
 from scs_core.osio.config.project import Project
 from scs_core.osio.config.project_topic import ProjectTopic
 from scs_core.osio.data.topic import Topic
 from scs_core.osio.data.topic_info import TopicInfo
 from scs_core.osio.manager.topic_manager import TopicManager
-
 from scs_core.sys.system_id import SystemID
-
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
-
 from scs_mfr.cmd.cmd_host_project import CmdHostProject
 
 
