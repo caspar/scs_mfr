@@ -4,12 +4,12 @@ Created on 29 Jan 2017
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
 
-from scs_core.sample.sample_datum import SampleDatum
+from scs_core.sample.sample import Sample
 
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class DFETestDatum(SampleDatum):
+class DFETestDatum(Sample):
     """
     classdocs
     """
