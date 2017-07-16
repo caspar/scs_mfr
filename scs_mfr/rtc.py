@@ -23,9 +23,12 @@ import tzlocal
 from scs_core.data.json import JSONify
 from scs_core.data.localized_datetime import LocalizedDatetime
 from scs_core.data.rtc_datetime import RTCDatetime
+
 from scs_dfe.time.ds1338 import DS1338
+
 from scs_host.bus.i2c import I2C
 from scs_host.sys.host import Host
+
 from scs_mfr.cmd.cmd_rtc import CmdRTC
 
 

@@ -7,10 +7,13 @@ Created on 13 Dec 2016
 
 Act I of III: Configuration workflow:
 
-    1: ./pt1000_conf.py -a ADDR -v
-  > 2: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
-    3: ./ndir_conf.py -p { 1 | 0 } -v
-    4: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
+    1: ./afe_conf.py -p { 1 | 0 } -v
+    2: ./pt1000_conf.py -a ADDR -v
+  > 3: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
+    4: ./opc_conf.py -s SAMPLE_PERIOD -p { 0 | 1 } -v
+    5: ./ndir_conf.py -p { 1 | 0 } -v
+    6: ./gps_conf.py -m [MODEL] -v
+    7: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
 Creates SHTConf document.
 
@@ -24,11 +27,8 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
-
 from scs_dfe.climate.sht_conf import SHTConf
-
 from scs_host.sys.host import Host
-
 from scs_mfr.cmd.cmd_sht_conf import CmdSHTConf
 
 

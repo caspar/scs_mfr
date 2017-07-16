@@ -1,5 +1,5 @@
 """
-Created on 21 Jun 2017
+Created on 16 Jul 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
@@ -9,7 +9,7 @@ import optparse
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class CmdNDIRConf(object):
+class CmdAFEConf(object):
     """unix command line handler"""
 
     def __init__(self):
@@ -19,8 +19,8 @@ class CmdNDIRConf(object):
         self.__parser = optparse.OptionParser(usage="%prog [-p { 1 | 0 }] [-v]", version="%prog 1.0")
 
         # optional...
-        self.__parser.add_option("--present", "-p", type="int", nargs=1, action="store", dest="present",
-                                 help="set NDIR as present or absent")
+        self.__parser.add_option("--pt1000-present", "-p", type="int", nargs=1, action="store", dest="pt1000_present",
+                                 help="set Pt1000 as pt1000_present or absent")
 
         self.__parser.add_option("--verbose", "-v", action="store_true", dest="verbose", default=False,
                                  help="report narrative to stderr")
@@ -31,7 +31,7 @@ class CmdNDIRConf(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def is_valid(self):
-        if self.__opts.present is None or self.__opts.present == 0 or self.__opts.present == 1:
+        if self.__opts.pt1000_present is None or self.__opts.pt1000_present == 0 or self.__opts.pt1000_present == 1:
             return True
 
         return False
@@ -40,14 +40,14 @@ class CmdNDIRConf(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def set(self):
-        return self.present is not None
+        return self.pt1000_present is not None
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def present(self):
-        return bool(self.__opts.present) if self.__opts.present is not None else None
+    def pt1000_present(self):
+        return bool(self.__opts.pt1000_present) if self.__opts.pt1000_present is not None else None
 
 
     @property
@@ -67,5 +67,5 @@ class CmdNDIRConf(object):
 
 
     def __str__(self, *args, **kwargs):
-        return "CmdNDIRConf:{present:%s, verbose:%s, args:%s}" % \
-                    (self.present, self.verbose, self.args)
+        return "CmdAFEConf:{pt1000_present:%s, verbose:%s, args:%s}" % \
+                    (self.pt1000_present, self.verbose, self.args)

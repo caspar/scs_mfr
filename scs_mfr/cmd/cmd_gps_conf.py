@@ -1,5 +1,5 @@
 """
-Created on 21 Jun 2017
+Created on 13 Jul 2016
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
@@ -9,18 +9,20 @@ import optparse
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class CmdNDIRConf(object):
-    """unix command line handler"""
+class CmdGPSConf(object):
+    """
+    unix command line handler
+    """
+
+    # ----------------------------------------------------------------------------------------------------------------
 
     def __init__(self):
-        """
-        Constructor
-        """
-        self.__parser = optparse.OptionParser(usage="%prog [-p { 1 | 0 }] [-v]", version="%prog 1.0")
+        self.__parser = optparse.OptionParser(usage="%prog [-m [MODEL]] [-v]",
+                                              version="%prog 1.0")
 
         # optional...
-        self.__parser.add_option("--present", "-p", type="int", nargs=1, action="store", dest="present",
-                                 help="set NDIR as present or absent")
+        self.__parser.add_option("--model", "-m", action="store_true", dest="model",
+                                 help="set MODEL")
 
         self.__parser.add_option("--verbose", "-v", action="store_true", dest="verbose", default=False,
                                  help="report narrative to stderr")
@@ -30,24 +32,17 @@ class CmdNDIRConf(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def is_valid(self):
-        if self.__opts.present is None or self.__opts.present == 0 or self.__opts.present == 1:
-            return True
-
-        return False
-
-
-    # ----------------------------------------------------------------------------------------------------------------
-
     def set(self):
-        return self.present is not None
+        return self.__opts.model
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def present(self):
-        return bool(self.__opts.present) if self.__opts.present is not None else None
+    def model(self):
+        model = self.__args[0] if len(self.__args) > 0 else None
+
+        return model if self.__opts.model else None
 
 
     @property
@@ -67,5 +62,5 @@ class CmdNDIRConf(object):
 
 
     def __str__(self, *args, **kwargs):
-        return "CmdNDIRConf:{present:%s, verbose:%s, args:%s}" % \
-                    (self.present, self.verbose, self.args)
+        return "CmdGPSConf:{model:%s, verbose:%s, args:%s}" % \
+               (self.model, self.verbose, self.args)

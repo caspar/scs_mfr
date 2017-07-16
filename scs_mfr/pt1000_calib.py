@@ -24,14 +24,17 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
+
 from scs_core.gas.pt1000_calib import Pt1000Calib
+
 from scs_core.sys.exception_report import ExceptionReport
+
 from scs_dfe.climate.sht_conf import SHTConf
-from scs_dfe.gas.afe import AFE
-from scs_dfe.gas.pt1000 import Pt1000
-from scs_dfe.gas.pt1000_conf import Pt1000Conf
+from scs_dfe.gas.afe_conf import AFEConf
+
 from scs_host.bus.i2c import I2C
 from scs_host.sys.host import Host
+
 from scs_mfr.cmd.cmd_pt1000_calib import CmdPt1000Calib
 
 
@@ -64,12 +67,9 @@ if __name__ == '__main__':
         sht_conf = SHTConf.load_from_host(Host)
         sht = sht_conf.int_sht()
 
-        # Pt1000...
-        pt1000_conf = Pt1000Conf.load_from_host(Host)
-        pt1000_calib = Pt1000Calib(None, v20)
-        pt1000 = Pt1000(pt1000_calib)
-
-        afe = AFE(pt1000_conf, pt1000, [])
+        # AFE...
+        afe_conf = AFEConf.load_from_host(Host)
+        afe = afe_conf.afe(Host)
 
 
         # ------------------------------------------------------------------------------------------------------------
@@ -91,27 +91,16 @@ if __name__ == '__main__':
             pt1000_calib = Pt1000Calib(None, v20)
             pt1000_calib.save(Host)
 
-            # Pt1000 final...
-            if cmd.verbose:
-                pt1000 = Pt1000(pt1000_calib)
-                afe = AFE(pt1000_conf, pt1000, [])
-
-                pt1000_datum = afe.sample_temp()
-
-                print(pt1000_datum, file=sys.stderr)
-
-        # calibration...
+        # calibrated...
         pt1000_calib = Pt1000Calib.load_from_host(Host)
 
         print(JSONify.dumps(pt1000_calib))
 
         if cmd.verbose:
-            pt1000_calib = Pt1000Calib.load_from_host(Host)
-            pt1000 = Pt1000(pt1000_calib)
+            afe = afe_conf.afe(Host)
+            pt1000_datum = afe.sample_temp()
 
-            afe = AFE(pt1000_conf, pt1000, [])
-
-            print(pt1000.sample(afe), file=sys.stderr)
+            print(pt1000_datum, file=sys.stderr)
 
 
     # ----------------------------------------------------------------------------------------------------------------

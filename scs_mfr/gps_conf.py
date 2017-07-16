@@ -11,25 +11,25 @@ Act I of III: Configuration workflow:
     2: ./pt1000_conf.py -a ADDR -v
     3: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
     4: ./opc_conf.py -s SAMPLE_PERIOD -p { 0 | 1 } -v
-  > 5: ./ndir_conf.py -p { 1 | 0 } -v
-    6: ./gps_conf.py -m [MODEL] -v
+    5: ./ndir_conf.py -p { 1 | 0 } -v
+  > 6: ./gps_conf.py -m [MODEL] -v
     7: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
-Creates NDIRConf document.
+Creates GPSConf document.
 
 document example:
-{"present": true}
+{"model": null}
 
 command line example:
-./ndir_conf.py -p 1 -v
+./gps_conf.py -m PAM7Q -v
 """
 
 import sys
 
 from scs_core.data.json import JSONify
+from scs_dfe.gps.gps_conf import GPSConf
 from scs_host.sys.host import Host
-from scs_mfr.cmd.cmd_ndir_conf import CmdNDIRConf
-from scs_ndir.gas.ndir_conf import NDIRConf
+from scs_mfr.cmd.cmd_gps_conf import CmdGPSConf
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -39,18 +39,14 @@ if __name__ == '__main__':
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
 
-    # NDIRConf...
-    conf = NDIRConf.load_from_host(Host)
+    # GPSConf...
+    conf = GPSConf.load_from_host(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------
     # cmd...
 
-    cmd = CmdNDIRConf()
-
-    if not cmd.is_valid():
-        cmd.print_help(sys.stderr)
-        exit()
+    cmd = CmdGPSConf()
 
     if cmd.verbose:
         print(cmd, file=sys.stderr)
@@ -61,7 +57,7 @@ if __name__ == '__main__':
     # run...
 
     if cmd.set():
-        conf = NDIRConf(cmd.present)
+        conf = GPSConf(cmd.model)
 
         conf.save(Host)
 

@@ -28,16 +28,21 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
+
 from scs_core.gas.afe_calib import AFECalib
+
 from scs_core.osio.client.api_auth import APIAuth
 from scs_core.osio.config.project import Project
 from scs_core.osio.config.project_topic import ProjectTopic
 from scs_core.osio.data.topic import Topic
 from scs_core.osio.data.topic_info import TopicInfo
 from scs_core.osio.manager.topic_manager import TopicManager
+
 from scs_core.sys.system_id import SystemID
+
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
+
 from scs_mfr.cmd.cmd_host_project import CmdHostProject
 
 

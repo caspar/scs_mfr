@@ -7,11 +7,13 @@ Created on 29 Jun 2017
 
 Act I of III: Configuration workflow:
 
-    1: ./pt1000_conf.py -a ADDR -v
-    2: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
-    3: ./opc_conf.py -s SAMPLE_PERIOD -p { 0 | 1 } -v
-    4: ./ndir_conf.py -p { 1 | 0 } -v
-  > 5: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
+    1: ./afe_conf.py -p { 1 | 0 } -v
+    2: ./pt1000_conf.py -a ADDR -v
+    3: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
+    4: ./opc_conf.py -s SAMPLE_PERIOD -p { 0 | 1 } -v
+    5: ./ndir_conf.py -p { 1 | 0 } -v
+    6: ./gps_conf.py -m [MODEL] -v
+  > 7: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
 Creates Schedule document.
 
