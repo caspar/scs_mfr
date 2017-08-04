@@ -13,8 +13,8 @@ Act III of III: OpenSensors.io workflow:
   > 2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY
 (   4: ./host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
-    5: ./host_client.py -s -u USER_ID -l LAT LNG POSTCODE -p
-    6: ./host_project.py -s GROUP LOCATION_ID -p
+    5: ./host_client.py -u USER_ID -l LAT LNG POSTCODE
+    6: ./host_project.py -s GROUP LOCATION_ID
 
 Creates SystemID document.
 

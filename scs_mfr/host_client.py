@@ -11,8 +11,8 @@ Act III of III: OpenSensors.io workflow:
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY
 (   4: ./host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
-  > 5: ./host_client.py -s -u USER_ID -l LAT LNG POSTCODE -p
-    6: ./host_project.py -s GROUP LOCATION_ID -p
+  > 5: ./host_client.py -u USER_ID -l LAT LNG POSTCODE
+    6: ./host_project.py -s GROUP LOCATION_ID
 
 Requires APIAuth and SystemID documents.
 
@@ -21,8 +21,10 @@ Creates ClientAuth document.
 document example:
 {"user_id": "southcoastscience-dev", "client-id": "5403", "client-password": "rtxSrK2f"}
 
-command line example:
-./host_client.py -s -u south-coast-science-test-user -l 50.823130 -0.122922 "BN2 0DF" -p -v
+command line examples:
+./host_client.py -u south-coast-science-test-user -l 50.823130 -0.122922 "BN2 0DF" -v
+./host_client.py -u southcoastscience-dev -l 51.865448 0.521049 CM77 7AA -v
+./host_client.py -u southcoastscience-dev -l 52.197832 0.125050 CB2 1EW -v
 """
 
 import sys
@@ -38,6 +40,8 @@ from scs_core.osio.manager.device_manager import DeviceManager
 from scs_core.osio.manager.user_manager import UserManager
 
 from scs_core.sys.system_id import SystemID
+
+from scs_dfe.particulate.opc_conf import OPCConf
 
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
@@ -60,6 +64,12 @@ if __name__ == '__main__':
 
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
+
+    # OPCConf...
+    opc_conf = OPCConf.load_from_host(Host)
+
+    if cmd.verbose:
+        print(opc_conf, file=sys.stderr)
 
     # APIAuth...
     api_auth = APIAuth.load_from_host(Host)
@@ -106,7 +116,7 @@ if __name__ == '__main__':
     # validate...
 
     if device is None and not cmd.is_complete():
-        print("No device is registered. host_client should therefore set user and location:", file=sys.stderr)
+        print("No device is registered. host_client must therefore set a user and location:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
 
@@ -124,7 +134,7 @@ if __name__ == '__main__':
                 exit()
 
         # tags...
-        tags = ProjectSource.tags(afe_calib, cmd.particulates)
+        tags = ProjectSource.tags(afe_calib, opc_conf.has_monitor())
 
         if device:
             if cmd.user_id:

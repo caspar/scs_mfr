@@ -11,8 +11,8 @@ Act III of III: OpenSensors.io workflow:
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
     3: ./api_auth.py -s ORG_ID API_KEY
 (   4: ./host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
-    5: ./host_client.py -s -u USER_ID -l LAT LNG POSTCODE -p
-  > 6: ./host_project.py -s GROUP LOCATION_ID -p
+    5: ./host_client.py -u USER_ID -l LAT LNG POSTCODE
+  > 6: ./host_project.py -s GROUP LOCATION_ID
 
 Requires APIAuth, SystemID and AFECalib documents.
 
@@ -22,7 +22,7 @@ document example:
 {"location-path": "/orgs/southcoastscience-dev/test/loc/1", "device-path": "/orgs/southcoastscience-dev/test/device"}
 
 command line example:
-./host_project.py -v -s field-trial 2 -p
+./host_project.py -v -s field-trial 2
 """
 
 import sys
@@ -39,6 +39,8 @@ from scs_core.osio.data.topic_info import TopicInfo
 from scs_core.osio.manager.topic_manager import TopicManager
 
 from scs_core.sys.system_id import SystemID
+
+from scs_dfe.particulate.opc_conf import OPCConf
 
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
@@ -105,6 +107,12 @@ if __name__ == '__main__':
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
 
+    # OPCConf...
+    opc_conf = OPCConf.load_from_host(Host)
+
+    if cmd.verbose:
+        print(opc_conf, file=sys.stderr)
+
     # APIAuth...
     api_auth = APIAuth.load_from_host(Host)
 
@@ -166,7 +174,7 @@ if __name__ == '__main__':
         creator.construct_topic(project.climate_topic_path(), ProjectTopic.CLIMATE)
         creator.construct_topic(project.gases_topic_path(), gases_topic)
 
-        if cmd.particulates:
+        if opc_conf.has_monitor():
             creator.construct_topic(project.particulates_topic_path(), ProjectTopic.PARTICULATES)
 
         creator.construct_topic(project.status_topic_path(system_id), ProjectTopic.STATUS)
@@ -181,18 +189,18 @@ if __name__ == '__main__':
     if cmd.verbose:
         print("-", file=sys.stderr)
 
-        print("gases_project:      %s" % gases_topic, file=sys.stderr)
+        print("     gases_project: %s" % gases_topic, file=sys.stderr)
         print("-", file=sys.stderr)
 
         found = manager.find(project.climate_topic_path())
 
         if found is not None:
-            print("climate_topic:      %s" % found.path, file=sys.stderr)
+            print("     climate_topic: %s" % found.path, file=sys.stderr)
 
         found = manager.find(project.gases_topic_path())
 
         if found is not None:
-            print("gases_topic:        %s" % found.path, file=sys.stderr)
+            print("       gases_topic: %s" % found.path, file=sys.stderr)
 
         found = manager.find(project.particulates_topic_path())
 
@@ -202,9 +210,9 @@ if __name__ == '__main__':
         found = manager.find(project.status_topic_path(system_id))
 
         if found is not None:
-            print("status_topic:       %s" % found.path, file=sys.stderr)
+            print("      status_topic: %s" % found.path, file=sys.stderr)
 
         found = manager.find(project.control_topic_path(system_id))
 
         if found is not None:
-            print("control_topic:      %s" % found.path, file=sys.stderr)
+            print("     control_topic: %s" % found.path, file=sys.stderr)

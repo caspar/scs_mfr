@@ -27,8 +27,11 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
+
 from scs_dfe.particulate.opc_conf import OPCConf
+
 from scs_host.sys.host import Host
+
 from scs_mfr.cmd.cmd_opc_conf import CmdOPCConf
 
 
@@ -53,7 +56,7 @@ if __name__ == '__main__':
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
 
-    # SHTConf...
+    # OPCConf...
     conf = OPCConf.load_from_host(Host)
 
 
@@ -61,7 +64,7 @@ if __name__ == '__main__':
     # validate...
 
     if conf is None and cmd.set() and not cmd.is_complete():
-        print("No configuration is stored. opc_conf should therefore set all fields:", file=sys.stderr)
+        print("No configuration is stored. opc_conf must therefore set all fields:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
 

@@ -18,8 +18,8 @@ class CmdHostClient(object):
         """
         Constructor
         """
-        self.__parser = optparse.OptionParser(usage="%prog [-s [-u USER_ID] [-l LAT LNG POSTCODE] [-d DESCRIPTION] "
-                                                    "[-p]] [-v]", version="%prog 1.0")
+        self.__parser = optparse.OptionParser(usage="%prog [-u USER_ID] [-l LAT LNG POSTCODE] [-d DESCRIPTION] "
+                                                    "[-v]", version="%prog 1.0")
 
         # optional...
         self.__parser.add_option("--set", "-s", action="store_true", dest="set", default=False,
@@ -33,9 +33,6 @@ class CmdHostClient(object):
 
         self.__parser.add_option("--desc", "-d", type="string", nargs=1, action="store", dest="description",
                                  help="set optional device description")
-
-        self.__parser.add_option("--particulates", "-p", action="store_true", dest="particulates",
-                                 help="include particulates tags")
 
         self.__parser.add_option("--verbose", "-v", action="store_true", dest="verbose", default=False,
                                  help="report narrative to stderr")
@@ -53,7 +50,10 @@ class CmdHostClient(object):
 
 
     def set(self):
-        return self.__opts.set
+        if self.__opts.user_id is None and self.__opts.lat_lng_postcode is None and self.__opts.description is None:
+            return False
+
+        return True
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -84,11 +84,6 @@ class CmdHostClient(object):
 
 
     @property
-    def particulates(self):
-        return self.__opts.particulates
-
-
-    @property
     def verbose(self):
         return self.__opts.verbose
 
@@ -105,7 +100,5 @@ class CmdHostClient(object):
 
 
     def __str__(self, *args, **kwargs):
-        return "CmdHostClient:{set:%s, user_id:%s, lat:%s, lng:%s, postcode:%s, description:%s, particulates:%s, " \
-               "verbose:%s, args:%s}" % \
-               (self.set(), self.user_id, self.lat, self.lng, self.postcode, self.description, self.particulates,
-                self.verbose, self.args)
+        return "CmdHostClient:{user_id:%s, lat:%s, lng:%s, postcode:%s, description:%s, verbose:%s, args:%s}" % \
+               (self.user_id, self.lat, self.lng, self.postcode, self.description, self.verbose, self.args)

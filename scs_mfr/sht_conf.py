@@ -57,7 +57,7 @@ if __name__ == '__main__':
     # validate...
 
     if conf is None and cmd.set() and not cmd.is_complete():
-        print("No configuration is stored. sht_conf should therefore set both addresses:", file=sys.stderr)
+        print("No configuration is stored. sht_conf must therefore set both I2C addresses:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
 

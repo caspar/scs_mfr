@@ -16,7 +16,7 @@ class CmdDFETest(object):
         """
         Constructor
         """
-        self.__parser = optparse.OptionParser(usage="%prog DFE_SERIAL_NUMBER [-e] [-g] [-g] [-r] [-v]",
+        self.__parser = optparse.OptionParser(usage="%prog DFE_SERIAL_NUMBER [-e] [-g] [-r] [-v]",
                                               version="%prog 1.0")
 
         # optional...

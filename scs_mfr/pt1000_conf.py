@@ -57,7 +57,7 @@ if __name__ == '__main__':
     # validate...
 
     if conf is None and cmd.set() and not cmd.is_complete():
-        print("No configuration is stored. pt1000_conf should therefore set an address:", file=sys.stderr)
+        print("No configuration is stored. pt1000_conf must therefore set an I2C address:", file=sys.stderr)
         cmd.print_help(sys.stderr)
         exit()
 
