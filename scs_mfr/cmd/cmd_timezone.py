@@ -1,5 +1,5 @@
 """
-Created on 24 Dec 2016
+Created on 12 Aug 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
@@ -9,17 +9,25 @@ import optparse
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class CmdGPO(object):
+class CmdTimezone(object):
     """
     unix command line handler
     """
 
+    # ----------------------------------------------------------------------------------------------------------------
+
     def __init__(self):
-        self.__parser = optparse.OptionParser(usage="%prog PIN LEVEL [-w PERIOD] [-v]", version="%prog 1.0")
+        self.__parser = optparse.OptionParser(usage="%prog [{ -z | -s ZONE | -l}] [-v]", version="%prog 1.0")
 
         # optional...
-        self.__parser.add_option("--wait", "-w", type="int", nargs=1, action="store", default=0, dest="wait",
-                                 help="wait period (default for-ever = 0)")
+        self.__parser.add_option("--zones", "-z", action="store_true", dest="list", default=False,
+                                 help="list available timezones to stderr")
+
+        self.__parser.add_option("--set", "-s", type="string", nargs=1, action="store", dest="zone", default=None,
+                                 help="override system timezone with ZONE")
+
+        self.__parser.add_option("--link", "-l", action="store_true", dest="link", default=False,
+                                 help="link to system timezone")
 
         self.__parser.add_option("--verbose", "-v", action="store_true", dest="verbose", default=False,
                                  help="report narrative to stderr")
@@ -30,27 +38,31 @@ class CmdGPO(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def is_valid(self):
-        if self.pin is None or self.level is None:
+        if int(self.list) + int(bool(self.zone)) + int(self.link) > 1:
             return False
 
         return True
 
 
+    def set(self):
+        return self.zone is not None
+
+
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def pin(self):
-        return self.__args[0].upper() if len(self.__args) > 0 else None
+    def list(self):
+        return self.__opts.list
 
 
     @property
-    def level(self):
-        return int(self.__args[1]) if len(self.__args) > 1 else None
+    def zone(self):
+        return self.__opts.zone
 
 
     @property
-    def wait(self):
-        return self.__opts.wait
+    def link(self):
+        return self.__opts.link
 
 
     @property
@@ -70,5 +82,5 @@ class CmdGPO(object):
 
 
     def __str__(self, *args, **kwargs):
-        return "CmdGPO:{pin:%s, level:%s, wait:%s, verbose:%s, args:%s}" % \
-                    (self.pin, self.level, self.wait, self.verbose, self.args)
+        return "CmdTimezone:{list:%s, zone:%s, link:%s, verbose:%s, args:%s}" % \
+               (self.list, self.zone, self.link, self.verbose, self.args)

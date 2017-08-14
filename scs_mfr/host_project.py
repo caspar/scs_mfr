@@ -5,7 +5,7 @@ Created on 18 Feb 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
-Act III of III: OpenSensors.io workflow:
+Act III of III: Deployment workflow:
 
     1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
@@ -13,6 +13,7 @@ Act III of III: OpenSensors.io workflow:
 (   4: ./host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
     5: ./host_client.py -u USER_ID -l LAT LNG POSTCODE
   > 6: ./host_project.py -s GROUP LOCATION_ID
+    7: ./timezone.py -v -s ZONE
 
 Requires APIAuth, SystemID and AFECalib documents.
 
@@ -96,12 +97,12 @@ if __name__ == '__main__':
 
     cmd = CmdHostProject()
 
-    if cmd.verbose:
-        print(cmd, file=sys.stderr)
-
     if not cmd.is_valid():
         cmd.print_help(sys.stderr)
         exit()
+
+    if cmd.verbose:
+        print(cmd, file=sys.stderr)
 
 
     # ----------------------------------------------------------------------------------------------------------------

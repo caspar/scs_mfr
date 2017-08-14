@@ -52,13 +52,17 @@ if __name__ == '__main__':
 
 
     # ----------------------------------------------------------------------------------------------------------------
-    # run...
-
-    now = LocalizedDatetime.now()
+    # resources...
 
     baseline = AFEBaseline.load_from_host(Host)
 
+
+    # ----------------------------------------------------------------------------------------------------------------
+    # run...
+
     if cmd.set():
+        now = LocalizedDatetime.now()
+
         for i, offset in cmd.offsets.items():
             if offset is not None:
                 baseline.set_sensor_baseline(i, SensorBaseline(now, offset))

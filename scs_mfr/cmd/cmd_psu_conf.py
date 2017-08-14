@@ -1,5 +1,5 @@
 """
-Created on 24 Dec 2016
+Created on 21 Jun 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
@@ -9,17 +9,18 @@ import optparse
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class CmdGPI(object):
-    """
-    unix command line handler
-    """
+class CmdPSUConf(object):
+    """unix command line handler"""
 
     def __init__(self):
-        self.__parser = optparse.OptionParser(usage="%prog PIN [-w LEVEL] [-v]", version="%prog 1.0")
+        """
+        Constructor
+        """
+        self.__parser = optparse.OptionParser(usage="%prog [-p { 1 | 0 }] [-v]", version="%prog 1.0")
 
         # optional...
-        self.__parser.add_option("--wait", "-w", type="int", nargs=1, action="store", default=None, dest="wait",
-                                 help="wait for level")
+        self.__parser.add_option("--present", "-p", type="int", nargs=1, action="store", dest="present",
+                                 help="set PSU as present or absent")
 
         self.__parser.add_option("--verbose", "-v", action="store_true", dest="verbose", default=False,
                                  help="report narrative to stderr")
@@ -30,22 +31,23 @@ class CmdGPI(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def is_valid(self):
-        if self.pin is None:
-            return False
+        if self.__opts.present is None or self.__opts.present == 0 or self.__opts.present == 1:
+            return True
 
-        return True
+        return False
+
+
+    # ----------------------------------------------------------------------------------------------------------------
+
+    def set(self):
+        return self.present is not None
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def pin(self):
-        return self.__args[0].upper() if len(self.__args) > 0 else None
-
-
-    @property
-    def wait(self):
-        return self.__opts.wait
+    def present(self):
+        return bool(self.__opts.present) if self.__opts.present is not None else None
 
 
     @property
@@ -65,5 +67,5 @@ class CmdGPI(object):
 
 
     def __str__(self, *args, **kwargs):
-        return "CmdGPI:{pin:%s, wait:%s, verbose:%s, args:%s}" % \
-                    (self.pin, self.wait, self.verbose, self.args)
+        return "CmdPSUConf:{present:%s, verbose:%s, args:%s}" % \
+                    (self.present, self.verbose, self.args)

@@ -11,29 +11,29 @@ Act I of III: Configuration workflow:
     2: ./pt1000_conf.py -a ADDR -v
     3: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
     4: ./opc_conf.py -m MODEL -s SAMPLE_PERIOD -p { 0 | 1 } -v
-    5: ./psu_conf.py -p { 1 | 0 } -v
+  > 5: ./psu_conf.py -p { 1 | 0 } -v
     6: ./ndir_conf.py -p { 1 | 0 } -v
-  > 7: ./gps_conf.py -m MODEL -v
+    7: ./gps_conf.py -m MODEL -v
     8: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
-Creates GPSConf document.
+Creates PSUConf document.
 
 document example:
-{"model": null}
+{"present": true}
 
 command line example:
-./gps_conf.py -m PAM7Q -v
+./psu_conf.py -p 1 -v
 """
 
 import sys
 
 from scs_core.data.json import JSONify
 
-from scs_dfe.gps.gps_conf import GPSConf
-
 from scs_host.sys.host import Host
 
-from scs_mfr.cmd.cmd_gps_conf import CmdGPSConf
+from scs_mfr.cmd.cmd_psu_conf import CmdPSUConf
+
+from scs_psu.psu.psu_conf import PSUConf
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -43,14 +43,18 @@ if __name__ == '__main__':
     # ----------------------------------------------------------------------------------------------------------------
     # resources...
 
-    # GPSConf...
-    conf = GPSConf.load_from_host(Host)
+    # PSUConf...
+    conf = PSUConf.load_from_host(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------
     # cmd...
 
-    cmd = CmdGPSConf()
+    cmd = CmdPSUConf()
+
+    if not cmd.is_valid():
+        cmd.print_help(sys.stderr)
+        exit()
 
     if cmd.verbose:
         print(cmd, file=sys.stderr)
@@ -61,7 +65,7 @@ if __name__ == '__main__':
     # run...
 
     if cmd.set():
-        conf = GPSConf(cmd.model)
+        conf = PSUConf(cmd.present)
 
         conf.save(Host)
 

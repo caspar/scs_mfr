@@ -7,7 +7,7 @@ Created on 17 Feb 2017
 
 Warning: changing system ID components can cause host client access to fail.
 
-Act III of III: OpenSensors.io workflow:
+Act III of III: Deployment workflow:
 
     1: ./host_id.py
   > 2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
@@ -15,6 +15,7 @@ Act III of III: OpenSensors.io workflow:
 (   4: ./host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
     5: ./host_client.py -u USER_ID -l LAT LNG POSTCODE
     6: ./host_project.py -s GROUP LOCATION_ID
+    7: ./timezone.py -v -s ZONE
 
 Creates SystemID document.
 

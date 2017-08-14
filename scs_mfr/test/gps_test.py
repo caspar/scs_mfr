@@ -6,7 +6,7 @@ Created on 18 May 2017
 
 import sys
 
-from scs_core.location.gprmc import GPRMC
+from scs_core.position.gprmc import GPRMC
 
 from scs_dfe.gps.pam7q import PAM7Q
 

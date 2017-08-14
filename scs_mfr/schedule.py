@@ -10,10 +10,11 @@ Act I of III: Configuration workflow:
     1: ./afe_conf.py -p { 1 | 0 } -v
     2: ./pt1000_conf.py -a ADDR -v
     3: ./sht_conf.py -i INT_ADDR -e EXT_ADDR -v
-    4: ./opc_conf.py -s SAMPLE_PERIOD -p { 0 | 1 } -v
-    5: ./ndir_conf.py -p { 1 | 0 } -v
-    6: ./gps_conf.py -m [MODEL] -v
-  > 7: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
+    4: ./opc_conf.py -m MODEL -s SAMPLE_PERIOD -p { 0 | 1 } -v
+    5: ./psu_conf.py -p { 1 | 0 } -v
+    6: ./ndir_conf.py -p { 1 | 0 } -v
+    7: ./gps_conf.py -m MODEL -v
+  > 8: ./schedule.py [{-s NAME INTERVAL COUNT | -c NAME }] [-v]
 
 Creates Schedule document.
 
@@ -62,6 +63,11 @@ if __name__ == '__main__':
 
     if cmd.set():
         item = ScheduleItem(cmd.name, cmd.interval, cmd.count)
+
+        # if not item.is_valid():
+        #     print("Item is not valid: %s" % item)
+        #     exit(1)
+
         schedule.set(item)
         schedule.save(Host)
 
