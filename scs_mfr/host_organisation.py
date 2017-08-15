@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     if api_auth is None:
         print("APIAuth not available.", file=sys.stderr)
-        exit()
+        exit(1)
 
     if cmd.verbose:
         print(api_auth, file=sys.stderr)
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     if org is None and not cmd.is_complete():
         print("No organisation is registered. host_organisation must therefore set all fields:", file=sys.stderr)
         cmd.print_help(sys.stderr)
-        exit()
+        exit(1)
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ if __name__ == '__main__':
         else:
             if not cmd.is_complete():
                 cmd.print_help(sys.stderr)
-                exit()
+                exit(1)
 
             # create Organisation...
             org = Organisation(cmd.org_id, cmd.name, cmd.website, cmd.description, cmd.email)

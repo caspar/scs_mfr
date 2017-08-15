@@ -63,7 +63,7 @@ if __name__ == '__main__':
     if cmd.set():
         if system_id is None and not cmd.is_complete():
             cmd.print_help(sys.stderr)
-            exit()
+            exit(1)
 
         vendor_id = system_id.vendor_id if cmd.vendor_id is None else cmd.vendor_id
         model_id = system_id.model_id if cmd.model_id is None else cmd.model_id

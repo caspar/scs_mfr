@@ -60,7 +60,7 @@ if __name__ == '__main__':
     if conf is None and cmd.set() and not cmd.is_complete():
         print("No configuration is stored. sht_conf must therefore set both I2C addresses:", file=sys.stderr)
         cmd.print_help(sys.stderr)
-        exit()
+        exit(1)
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     if cmd.set():
         if conf is None and not cmd.is_complete():
             cmd.print_help(sys.stderr)
-            exit()
+            exit(1)
 
         int_addr = cmd.int_addr if cmd.int_addr else conf.int_addr
         ext_addr = cmd.ext_addr if cmd.ext_addr else conf.ext_addr

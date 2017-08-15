@@ -28,8 +28,11 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
+
 from scs_dfe.gas.pt1000_conf import Pt1000Conf
+
 from scs_host.sys.host import Host
+
 from scs_mfr.cmd.cmd_pt1000_conf import CmdPt1000Conf
 
 
@@ -60,7 +63,7 @@ if __name__ == '__main__':
     if conf is None and cmd.set() and not cmd.is_complete():
         print("No configuration is stored. pt1000_conf must therefore set an I2C address:", file=sys.stderr)
         cmd.print_help(sys.stderr)
-        exit()
+        exit(1)
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -69,7 +72,7 @@ if __name__ == '__main__':
     if cmd.set():
         if conf is None and not cmd.is_complete():
             cmd.print_help(sys.stderr)
-            exit()
+            exit(1)
 
         conf = Pt1000Conf(cmd.addr)
         conf.save(Host)

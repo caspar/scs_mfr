@@ -99,7 +99,7 @@ if __name__ == '__main__':
 
     if not cmd.is_valid():
         cmd.print_help(sys.stderr)
-        exit()
+        exit(2)
 
     if cmd.verbose:
         print(cmd, file=sys.stderr)
@@ -119,7 +119,7 @@ if __name__ == '__main__':
 
     if api_auth is None:
         print("APIAuth not available.", file=sys.stderr)
-        exit()
+        exit(1)
 
     if cmd.verbose:
         print(api_auth, file=sys.stderr)
@@ -130,7 +130,7 @@ if __name__ == '__main__':
 
     if system_id is None:
         print("SystemID not available.", file=sys.stderr)
-        exit()
+        exit(1)
 
     if cmd.verbose:
         print(system_id, file=sys.stderr)
@@ -141,7 +141,7 @@ if __name__ == '__main__':
 
     if afe_calib is None:
         print("AFECalib not available.", file=sys.stderr)
-        exit()
+        exit(1)
 
     if cmd.verbose:
         print(afe_calib, file=sys.stderr)
@@ -187,13 +187,13 @@ if __name__ == '__main__':
     print(JSONify.dumps(project))
 
     # report...
-    if cmd.verbose:
+    if cmd.verbose and project is not None:
         print("-", file=sys.stderr)
 
         print("     gases_project: %s" % gases_topic, file=sys.stderr)
         print("-", file=sys.stderr)
 
-        found = manager.find(project.climate_topic_path())
+        found = manager.find(project.climate_topic_path())      # TODO: not if project is None!!
 
         if found is not None:
             print("     climate_topic: %s" % found.path, file=sys.stderr)

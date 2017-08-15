@@ -72,12 +72,12 @@ if __name__ == '__main__':
         if not cmd.is_valid():
             cmd.print_help(sys.stderr)
             I2C.close()
-            exit()
+            exit(2)
 
         if not os.path.isfile(cmd.filename):
             print("error: file not found", file=sys.stderr)
             I2C.close()
-            exit()
+            exit(1)
 
         if cmd.verbose:
             print("current eeprom image:")
@@ -110,7 +110,7 @@ if __name__ == '__main__':
         if not verified:
             print("error: verification failed", file=sys.stderr)
             I2C.close()
-            exit()
+            exit(1)
 
         if cmd.verbose:
             print("verified:%s" % verified)

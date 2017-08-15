@@ -19,10 +19,11 @@ Act I of III: Configuration workflow:
 Creates Schedule document.
 
 document example:
-{"particulates": {"sampling-interval": 5.0, "sample-count": 2}, "gases": {"sampling-interval": 10.0, "sample-count": 1}}
+{"scs-climate": {"interval": 60.0, "tally": 1}, "scs-gases": {"interval": 10.0, "tally": 1},
+"scs-particulates": {"interval": 10.0, "tally": 1}, "scs-status": {"interval": 60.0, "tally": 1}}
 
 command line example:
-./schedule.py -s gases 10.0 1
+./schedule.py -s scs-climate 10.0 1
 """
 
 import sys
@@ -49,7 +50,7 @@ if __name__ == '__main__':
 
     if not cmd.is_valid():
         cmd.print_help(sys.stderr)
-        exit()
+        exit(2)
 
 
     # ----------------------------------------------------------------------------------------------------------------

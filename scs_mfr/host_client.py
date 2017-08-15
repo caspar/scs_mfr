@@ -77,7 +77,7 @@ if __name__ == '__main__':
 
     if api_auth is None:
         print("APIAuth not available.", file=sys.stderr)
-        exit()
+        exit(1)
 
     if cmd.verbose:
         print(api_auth, file=sys.stderr)
@@ -87,7 +87,7 @@ if __name__ == '__main__':
 
     if system_id is None:
         print("SystemID not available.", file=sys.stderr)
-        exit()
+        exit(1)
 
     if cmd.verbose:
         print(system_id, file=sys.stderr)
@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     if afe_calib is None:
         print("AFECalib not available.", file=sys.stderr)
-        exit()
+        exit(1)
 
     if cmd.verbose:
         print(afe_calib, file=sys.stderr)
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     if device is None and not cmd.is_complete():
         print("No device is registered. host_client must therefore set a user and location:", file=sys.stderr)
         cmd.print_help(sys.stderr)
-        exit()
+        exit(1)
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ if __name__ == '__main__':
 
             if user is None:
                 print("User not available.", file=sys.stderr)
-                exit()
+                exit(1)
 
         # tags...
         tags = ProjectSource.tags(afe_calib, opc_conf.has_monitor())
@@ -140,7 +140,7 @@ if __name__ == '__main__':
         if device:
             if cmd.user_id:
                 print("Device owner-id cannot be updated.", file=sys.stderr)
-                exit()
+                exit(1)
 
             # find ClientAuth...
             client_auth = ClientAuth.load_from_host(Host)

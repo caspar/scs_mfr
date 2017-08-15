@@ -46,9 +46,9 @@ Act I: Configuration workflow:
 
 Act II: Calibration workflow:
 
-    1: ./rtc.py -i -s -v
-    2: ./pt1000_calib.py -s -v
-    3: ./afe_calib -s AFE_SERIAL_NUMBER
+    1: ./rtc.py -i -s -v 
+    2: ./afe_calib -s AFE_SERIAL_NUMBER
+    3: ./pt1000_calib.py -s -v
     4: ./afe_baseline.py -v -1 SN1_OFFSET -2 SN2_OFFSET -3 SN3_OFFSET -4 SN3_OFFSET
 
 

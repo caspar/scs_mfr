@@ -41,7 +41,7 @@ class EEPROMTest(Test):
         # validate...
         if not os.path.isfile(Host.DFE_EEP_IMAGE):
             print("error: eeprom image not found", file=sys.stderr)
-            exit()
+            exit(1)
 
         try:
             # resources...

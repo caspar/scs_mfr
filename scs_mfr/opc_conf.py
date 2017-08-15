@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     if not cmd.is_valid():
         cmd.print_help(sys.stderr)
-        exit()
+        exit(2)
 
     if cmd.verbose:
         print(cmd, file=sys.stderr)
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     if conf is None and cmd.set() and not cmd.is_complete():
         print("No configuration is stored. opc_conf must therefore set all fields:", file=sys.stderr)
         cmd.print_help(sys.stderr)
-        exit()
+        exit(1)
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ if __name__ == '__main__':
     if cmd.set():
         if conf is None and not cmd.is_complete():
             cmd.print_help(sys.stderr)
-            exit()
+            exit(1)
 
         model = cmd.model if cmd.model else conf.model
         sample_period = cmd.sample_period if cmd.sample_period else conf.sample_period
