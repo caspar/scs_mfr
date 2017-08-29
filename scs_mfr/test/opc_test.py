@@ -5,6 +5,7 @@ Created on 18 May 2017
 """
 
 import sys
+import time
 
 from scs_dfe.particulate.opc_n2 import OPCN2
 
@@ -50,7 +51,7 @@ class OPCTest(Test):
                 print(self.datum, file=sys.stderr)
 
             # test criterion...
-            return len(self.datum) > 0
+            return len(self.datum) > 0 and self.datum.startswith('OPC')
 
         finally:
             if opc:

@@ -193,7 +193,7 @@ if __name__ == '__main__':
         print("     gases_project: %s" % gases_topic, file=sys.stderr)
         print("-", file=sys.stderr)
 
-        found = manager.find(project.climate_topic_path())      # TODO: not if project is None!!
+        found = manager.find(project.climate_topic_path())
 
         if found is not None:
             print("     climate_topic: %s" % found.path, file=sys.stderr)
