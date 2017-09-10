@@ -36,6 +36,8 @@ from scs_mfr.cmd.cmd_psu_conf import CmdPSUConf
 from scs_psu.psu.psu_conf import PSUConf
 
 
+# TODO: should use stub PSUConf / PSU class, so that the script can be invoked on RPI systems
+
 # --------------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
