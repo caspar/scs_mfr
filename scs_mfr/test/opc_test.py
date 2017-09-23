@@ -5,7 +5,6 @@ Created on 18 May 2017
 """
 
 import sys
-import time
 
 from scs_dfe.particulate.opc_n2 import OPCN2
 
