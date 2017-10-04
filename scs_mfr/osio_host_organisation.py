@@ -9,10 +9,10 @@ Act III of III: Deployment workflow:
 
     1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
-    3: ./api_auth.py -s ORG_ID API_KEY
-( > 4: ./host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
-    5: ./host_client.py -u USER_ID -l LAT LNG POSTCODE
-    6: ./host_project.py -s GROUP LOCATION_ID
+    3: ./osio_api_auth.py -s ORG_ID API_KEY
+( > 4: ./osio_host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
+    5: ./osio_host_client.py -u USER_ID -l LAT LNG POSTCODE
+    6: ./osio_host_project.py -s GROUP LOCATION_ID
     7: ./timezone.py -v -s ZONE
 
 Requires APIAuth document.
@@ -20,7 +20,7 @@ Requires APIAuth document.
 Note: the APIAuth document arguably should be updated by this script, but currently it is not.
 
 command line example:
-./host_organisation.py \
+./osio_host_organisation.py \
 -o south-coast-science-dev \
 -n 'South Coast Science (Dev)' \
 -w https://www.southcoastscience.com \
@@ -39,7 +39,7 @@ from scs_core.osio.manager.organisation_manager import OrganisationManager
 from scs_host.client.http_client import HTTPClient
 from scs_host.sys.host import Host
 
-from scs_mfr.cmd.cmd_host_organisation import CmdHostOrganisation
+from scs_mfr.cmd.cmd_osio_host_organisation import CmdOSIOHostOrganisation
 
 
 # TODO: Update the APIAuth document, as necessary
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     # ----------------------------------------------------------------------------------------------------------------
     # cmd...
 
-    cmd = CmdHostOrganisation()
+    cmd = CmdOSIOHostOrganisation()
 
     if cmd.verbose:
         print(cmd, file=sys.stderr)

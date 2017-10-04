@@ -9,10 +9,10 @@ Act III of III: Deployment workflow:
 
     1: ./host_id.py
     2: ./system_id.py -d VENDOR_ID -m MODEL_ID -n MODEL_NAME -c CONFIG -s SYSTEM_SERIAL_NUMBER -v
-    3: ./api_auth.py -s ORG_ID API_KEY
-(   4: ./host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
-    5: ./host_client.py -u USER_ID -l LAT LNG POSTCODE
-    6: ./host_project.py -s GROUP LOCATION_ID
+    3: ./osio_api_auth.py -s ORG_ID API_KEY
+(   4: ./osio_host_organisation.py -o ORG_ID -n NAME -w WEB -d DESCRIPTION -e EMAIL -v )
+    5: ./osio_host_client.py -u USER_ID -l LAT LNG POSTCODE
+    6: ./osio_host_project.py -s GROUP LOCATION_ID
   > 7: ./timezone.py -v -s ZONE
 
 Creates TimezoneConf document.

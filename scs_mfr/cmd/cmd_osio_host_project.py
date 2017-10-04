@@ -9,7 +9,7 @@ import optparse
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class CmdHostProject(object):
+class CmdOSIOHostProject(object):
     """unix command line handler"""
 
     def __init__(self):
@@ -76,5 +76,5 @@ class CmdHostProject(object):
 
 
     def __str__(self, *args, **kwargs):
-        return "CmdHostProject:{group:%s, location_id:%s, verbose:%s, args:%s}" % \
+        return "CmdOSIOHostProject:{group:%s, location_id:%s, verbose:%s, args:%s}" % \
                (self.group, self.location_id, self.verbose, self.args)

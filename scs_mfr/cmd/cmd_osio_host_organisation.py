@@ -9,7 +9,7 @@ import optparse
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class CmdHostOrganisation(object):
+class CmdOSIOHostOrganisation(object):
     """
     unix command line handler
     """
@@ -100,7 +100,7 @@ class CmdHostOrganisation(object):
 
 
     def __str__(self, *args, **kwargs):
-        return "CmdHostOrganisation:{org_id:%s, name:%s, website:%s, description:%s, email:%s, " \
+        return "CmdOSIOHostOrganisation:{org_id:%s, name:%s, website:%s, description:%s, email:%s, " \
                "verbose:%s, args:%s}" % \
                     (self.org_id, self.name, self.website, self.description, self.email,
                      self.verbose, self.args)
