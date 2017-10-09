@@ -35,7 +35,7 @@ class AFETest(Test):
             I2C.open(Host.I2C_SENSORS)
 
             # AFE...
-            afe_conf = AFEConf.load_from_host(Host)
+            afe_conf = AFEConf.load(Host)
             afe = afe_conf.afe(Host)
 
             # test...

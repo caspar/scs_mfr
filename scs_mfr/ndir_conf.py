@@ -41,7 +41,7 @@ if __name__ == '__main__':
     # resources...
 
     # NDIRConf...
-    conf = NDIRConf.load_from_host(Host)
+    conf = NDIRConf.load(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------

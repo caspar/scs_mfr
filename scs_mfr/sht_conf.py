@@ -51,7 +51,7 @@ if __name__ == '__main__':
     # resources...
 
     # SHTConf...
-    conf = SHTConf.load_from_host(Host)
+    conf = SHTConf.load(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------

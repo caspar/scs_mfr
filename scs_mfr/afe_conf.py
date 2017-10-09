@@ -41,7 +41,7 @@ if __name__ == '__main__':
     # resources...
 
     # SHTConf...
-    conf = AFEConf.load_from_host(Host)
+    conf = AFEConf.load(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------

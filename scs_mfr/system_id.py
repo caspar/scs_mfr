@@ -54,7 +54,7 @@ if __name__ == '__main__':
     # resources...
 
     # check for existing document...
-    system_id = SystemID.load_from_host(Host)
+    system_id = SystemID.load(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------

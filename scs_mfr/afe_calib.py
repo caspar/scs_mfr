@@ -73,6 +73,6 @@ if __name__ == '__main__':
         if calib is not None:
             calib.save(Host)
 
-    calib = AFECalib.load_from_host(Host)
+    calib = AFECalib.load(Host)
 
     print(JSONify.dumps(calib))

@@ -46,7 +46,7 @@ if __name__ == '__main__':
     # resources...
 
     # PSUConf...
-    conf = PSUConf.load_from_host(Host)
+    conf = PSUConf.load(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------

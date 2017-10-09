@@ -58,7 +58,7 @@ if __name__ == '__main__':
     # resources...
 
     # OPCConf...
-    conf = OPCConf.load_from_host(Host)
+    conf = OPCConf.load(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------

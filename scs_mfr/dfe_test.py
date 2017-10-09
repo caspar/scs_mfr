@@ -58,7 +58,7 @@ if __name__ == '__main__':
     # resources...
 
     # SystemID...
-    system_id = SystemID.load_from_host(Host)
+    system_id = SystemID.load(Host)
 
     if system_id is None:
         print("SystemID not available.", file=sys.stderr)
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     # Int SHT...
 
     try:
-        sht_conf = SHTConf.load_from_host(Host)
+        sht_conf = SHTConf.load(Host)
         sht = sht_conf.int_sht()
 
         test = SHTTest("Int SHT", sht, cmd.verbose)
@@ -165,7 +165,7 @@ if __name__ == '__main__':
     # Ext SHT...
 
     try:
-        sht_conf = SHTConf.load_from_host(Host)
+        sht_conf = SHTConf.load(Host)
         sht = sht_conf.ext_sht()
 
         test = SHTTest("Ext SHT", sht, cmd.verbose)

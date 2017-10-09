@@ -44,7 +44,7 @@ if __name__ == '__main__':
     # resources...
 
     # GPSConf...
-    conf = GPSConf.load_from_host(Host)
+    conf = GPSConf.load(Host)
 
 
     # ----------------------------------------------------------------------------------------------------------------

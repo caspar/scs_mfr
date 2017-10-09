@@ -109,13 +109,13 @@ if __name__ == '__main__':
     # resources...
 
     # OPCConf...
-    opc_conf = OPCConf.load_from_host(Host)
+    opc_conf = OPCConf.load(Host)
 
     if cmd.verbose:
         print(opc_conf, file=sys.stderr)
 
     # APIAuth...
-    api_auth = APIAuth.load_from_host(Host)
+    api_auth = APIAuth.load(Host)
 
     if api_auth is None:
         print("APIAuth not available.", file=sys.stderr)
@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
 
     # SystemID...
-    system_id = SystemID.load_from_host(Host)
+    system_id = SystemID.load(Host)
 
     if system_id is None:
         print("SystemID not available.", file=sys.stderr)
@@ -137,7 +137,7 @@ if __name__ == '__main__':
 
 
     # AFECalib...
-    afe_calib = AFECalib.load_from_host(Host)
+    afe_calib = AFECalib.load(Host)
 
     if afe_calib is None:
         print("AFECalib not available.", file=sys.stderr)
@@ -183,7 +183,7 @@ if __name__ == '__main__':
 
         project.save(Host)
 
-    project = Project.load_from_host(Host)
+    project = Project.load(Host)
     print(JSONify.dumps(project))
 
     # report...

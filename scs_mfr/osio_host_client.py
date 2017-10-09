@@ -67,13 +67,13 @@ if __name__ == '__main__':
     # resources...
 
     # OPCConf...
-    opc_conf = OPCConf.load_from_host(Host)
+    opc_conf = OPCConf.load(Host)
 
     if cmd.verbose:
         print(opc_conf, file=sys.stderr)
 
     # APIAuth...
-    api_auth = APIAuth.load_from_host(Host)
+    api_auth = APIAuth.load(Host)
 
     if api_auth is None:
         print("APIAuth not available.", file=sys.stderr)
@@ -83,7 +83,7 @@ if __name__ == '__main__':
         print(api_auth, file=sys.stderr)
 
     # SystemID...
-    system_id = SystemID.load_from_host(Host)
+    system_id = SystemID.load(Host)
 
     if system_id is None:
         print("SystemID not available.", file=sys.stderr)
@@ -93,7 +93,7 @@ if __name__ == '__main__':
         print(system_id, file=sys.stderr)
 
     # AFECalib...
-    afe_calib = AFECalib.load_from_host(Host)
+    afe_calib = AFECalib.load(Host)
 
     if afe_calib is None:
         print("AFECalib not available.", file=sys.stderr)
@@ -143,7 +143,7 @@ if __name__ == '__main__':
                 exit(1)
 
             # find ClientAuth...
-            client_auth = ClientAuth.load_from_host(Host)
+            client_auth = ClientAuth.load(Host)
 
             # update Device...
             updated = ProjectSource.update(device, cmd.lat, cmd.lng, cmd.postcode, cmd.description, tags)
@@ -159,11 +159,12 @@ if __name__ == '__main__':
 
             # create ClientAuth...
             client_auth = ClientAuth(cmd.user_id, device.client_id, device.password)
+
             client_auth.save(Host)
 
     else:
         # find ClientAuth...
-        client_auth = ClientAuth.load_from_host(Host)
+        client_auth = ClientAuth.load(Host)
 
     if cmd.verbose:
         print(client_auth, file=sys.stderr)

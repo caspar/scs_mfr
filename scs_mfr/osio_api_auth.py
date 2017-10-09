@@ -53,10 +53,11 @@ if __name__ == '__main__':
 
     if cmd.set():
         auth = APIAuth(cmd.org_id, cmd.api_key)
+
         auth.save(Host)
 
     else:
         # find self...
-        auth = APIAuth.load_from_host(Host)
+        auth = APIAuth.load(Host)
 
     print(JSONify.dumps(auth))
