@@ -17,8 +17,6 @@ Act III of III: Deployment workflow:
 
 Requires APIAuth document.
 
-Note: the APIAuth document arguably should be updated by this script, but currently it is not.
-
 command line example:
 ./osio_host_organisation.py \
 -o south-coast-science-dev \
@@ -41,8 +39,6 @@ from scs_host.sys.host import Host
 
 from scs_mfr.cmd.cmd_osio_host_organisation import CmdOSIOHostOrganisation
 
-
-# TODO: Update the APIAuth document, as necessary
 
 # --------------------------------------------------------------------------------------------------------------------
 
