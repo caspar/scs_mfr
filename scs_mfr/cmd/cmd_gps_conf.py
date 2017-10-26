@@ -22,7 +22,7 @@ class CmdGPSConf(object):
 
         # optional...
         self.__parser.add_option("--model", "-m", action="store_true", dest="model",
-                                 help="set MODEL")
+                                 help="set MODEL (empty or PAM7Q)")
 
         self.__parser.add_option("--verbose", "-v", action="store_true", dest="verbose", default=False,
                                  help="report narrative to stderr")

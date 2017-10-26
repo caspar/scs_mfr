@@ -41,7 +41,7 @@ class GPSTest(Test):
             I2C.open(Host.I2C_SENSORS)
 
             # GPS...
-            gps = PAM7Q()
+            gps = PAM7Q(Host.gps_device())
 
             gps.power_on()
             gps.open()
