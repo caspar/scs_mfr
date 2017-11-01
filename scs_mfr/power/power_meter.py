@@ -4,7 +4,7 @@ Created on 20 Oct 2016
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
 
-from serial import Serial
+import serial
 
 from scs_mfr.power.power_datum import PowerDatum
 
@@ -28,7 +28,7 @@ class PowerMeter(object):
         """
         Constructor
         """
-        self.__ser = Serial(PowerMeter.__DEVICE, 115200, timeout=1.0)
+        self.__ser = serial.Serial(PowerMeter.__DEVICE, 115200, timeout=1.0)
 
 
     # ----------------------------------------------------------------------------------------------------------------

@@ -28,8 +28,11 @@ command line example:
 import sys
 
 from scs_core.data.json import JSONify
+
 from scs_dfe.climate.sht_conf import SHTConf
+
 from scs_host.sys.host import Host
+
 from scs_mfr.cmd.cmd_sht_conf import CmdSHTConf
 
 
